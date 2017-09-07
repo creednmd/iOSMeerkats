@@ -183,14 +183,15 @@ class PlanarMeerkatsViewController: UIViewController {
         let maxXOffset: Float = 0.5
 
         node.position = mainPlane.position
-        node.position.y = mainPlaneAnchor!.transform.columns.3.y
+        node.position.y = mainPlaneAnchor!.transform.columns.3.y - 0.4
 
         node.position.z = Float.random(min: minZOffset, max: maxZOffset)
         node.position.x = Float.random(min: minXOffset, max: maxXOffset)
-        var posNew = node.position
-        posNew.y -= 0.4
-        node.runAction(SCNAction.move(to: posNew, duration: 2.0))
         
+        var posNew = node.position
+        posNew.y = mainPlaneAnchor!.transform.columns.3.y
+        node.runAction(SCNAction.move(to: posNew, duration: 2.0)) {}
+
         node.runAction(SCNAction.rotate(by: 200, around: SCNVector3Make(0, 1, 0), duration: 100))
         
         sceneView.scene.rootNode.addChildNode(node)
@@ -240,7 +241,6 @@ extension PlanarMeerkatsViewController: ARSessionObserver {
 
 
 extension PlanarMeerkatsViewController {
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let location = touch.location(in: sceneView)
@@ -249,16 +249,19 @@ extension PlanarMeerkatsViewController {
         handleTouchFor(node)
     }
     
-    
     func handleTouchFor(_ node : SCNNode) {
         print("Remove Meerkat \(node)")
         guard node != self.clippingFloorNode else { return }
         guard node != self.sceneView.scene.rootNode else { return }
-        node.removeFromParentNode()
         
         score += multiplier
+
+        var posNew = node.position
+        posNew.y -= 0.4
+        node.runAction(SCNAction.move(to: posNew, duration: 2.0)) {
+            node.removeFromParentNode()
+        }
     }
-    
 }
 
 
@@ -320,8 +323,8 @@ extension PlanarMeerkatsViewController: ARSCNViewDelegate {
     
     func beginGame() {
         DispatchQueue.main.async {
-            self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
-                self.elapsedTime += 0.5
+            self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
+                self.elapsedTime += 0.1
                 self.tapScreen(UITapGestureRecognizer())
             })
         }
