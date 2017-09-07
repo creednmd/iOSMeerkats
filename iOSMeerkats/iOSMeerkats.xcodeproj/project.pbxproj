@@ -9,11 +9,12 @@
 /* Begin PBXBuildFile section */
 		916EB6CE1F61BFB6004F976D /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 916EB6CD1F61BFB6004F976D /* Settings.storyboard */; };
 		916EB6D01F61BFBE004F976D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916EB6CF1F61BFBE004F976D /* SettingsViewController.swift */; };
+		916EB6D31F61C93D004F976D /* CollisionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916EB6D21F61C93D004F976D /* CollisionTypes.swift */; };
+		916EB6D51F61C94F004F976D /* Float+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916EB6D41F61C94F004F976D /* Float+Extension.swift */; };
 		9295C8551F6192D5004E00A4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9295C8541F6192D5004E00A4 /* Utils.swift */; };
 		9295C8791F61B4DE004E00A4 /* PlanarMeerkatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9295C8781F61B4DE004E00A4 /* PlanarMeerkatsViewController.swift */; };
 		92EC63921F617D1400BF8329 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EC63911F617D1400BF8329 /* AppDelegate.swift */; };
 		92EC63941F617D1400BF8329 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 92EC63931F617D1400BF8329 /* art.scnassets */; };
-		92EC63961F617D1400BF8329 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EC63951F617D1400BF8329 /* ViewController.swift */; };
 		92EC63991F617D1400BF8329 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92EC63971F617D1400BF8329 /* Main.storyboard */; };
 		92EC639B1F617D1400BF8329 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92EC639A1F617D1400BF8329 /* Assets.xcassets */; };
 		92EC639E1F617D1400BF8329 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92EC639C1F617D1400BF8329 /* LaunchScreen.storyboard */; };
@@ -22,13 +23,14 @@
 /* Begin PBXFileReference section */
 		916EB6CD1F61BFB6004F976D /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		916EB6CF1F61BFBE004F976D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		916EB6D21F61C93D004F976D /* CollisionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionTypes.swift; sourceTree = "<group>"; };
+		916EB6D41F61C94F004F976D /* Float+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Extension.swift"; sourceTree = "<group>"; };
 		9295C8531F61839B004E00A4 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		9295C8541F6192D5004E00A4 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		9295C8781F61B4DE004E00A4 /* PlanarMeerkatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanarMeerkatsViewController.swift; sourceTree = "<group>"; };
 		92EC638E1F617D1400BF8329 /* iOSMeerkats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSMeerkats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92EC63911F617D1400BF8329 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92EC63931F617D1400BF8329 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		92EC63951F617D1400BF8329 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		92EC63981F617D1400BF8329 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		92EC639A1F617D1400BF8329 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92EC639D1F617D1400BF8329 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -46,6 +48,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		916EB6D11F61C56B004F976D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				916EB6CD1F61BFB6004F976D /* Settings.storyboard */,
+				916EB6CF1F61BFBE004F976D /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		9295C8521F61839B004E00A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,17 +85,17 @@
 		92EC63901F617D1400BF8329 /* iOSMeerkats */ = {
 			isa = PBXGroup;
 			children = (
+				916EB6D11F61C56B004F976D /* Settings */,
 				92EC63911F617D1400BF8329 /* AppDelegate.swift */,
 				92EC63931F617D1400BF8329 /* art.scnassets */,
-				92EC63951F617D1400BF8329 /* ViewController.swift */,
 				92EC63971F617D1400BF8329 /* Main.storyboard */,
-				916EB6CD1F61BFB6004F976D /* Settings.storyboard */,
-				916EB6CF1F61BFBE004F976D /* SettingsViewController.swift */,
 				92EC639A1F617D1400BF8329 /* Assets.xcassets */,
 				92EC639C1F617D1400BF8329 /* LaunchScreen.storyboard */,
 				92EC639F1F617D1400BF8329 /* Info.plist */,
 				9295C8541F6192D5004E00A4 /* Utils.swift */,
 				9295C8781F61B4DE004E00A4 /* PlanarMeerkatsViewController.swift */,
+				916EB6D21F61C93D004F976D /* CollisionTypes.swift */,
+				916EB6D41F61C94F004F976D /* Float+Extension.swift */,
 			);
 			path = iOSMeerkats;
 			sourceTree = "<group>";
@@ -162,10 +173,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92EC63961F617D1400BF8329 /* ViewController.swift in Sources */,
 				92EC63921F617D1400BF8329 /* AppDelegate.swift in Sources */,
+				916EB6D31F61C93D004F976D /* CollisionTypes.swift in Sources */,
 				9295C8791F61B4DE004E00A4 /* PlanarMeerkatsViewController.swift in Sources */,
 				916EB6D01F61BFBE004F976D /* SettingsViewController.swift in Sources */,
+				916EB6D51F61C94F004F976D /* Float+Extension.swift in Sources */,
 				9295C8551F6192D5004E00A4 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

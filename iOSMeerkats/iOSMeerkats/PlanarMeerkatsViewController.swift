@@ -11,9 +11,16 @@ import SceneKit
 import ARKit
 
 
-class PlanarMeerkatsViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
+class PlanarMeerkatsViewController: UIViewController {
     
-    @IBOutlet var sceneView: ARSCNView!
+    // MARK: - Outlets
+    
+    @IBOutlet weak var sceneView: ARSCNView!
+    @IBOutlet weak var errorBGView: UIVisualEffectView!
+    @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+
+    // MARK: - Properties
     
     fileprivate var meerkats: [SCNNode] = []
     fileprivate var planes: [String : SCNNode] = [:]
@@ -22,19 +29,30 @@ class PlanarMeerkatsViewController: UIViewController, ARSCNViewDelegate, SCNPhys
     fileprivate var mainPlane: SCNNode?
     fileprivate var mainPlaneAnchor: ARPlaneAnchor?
     
+    fileprivate var isErrorState = false {
+        didSet {
+            showErrorState()
+        }
+    }
+
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "Plane Mapper"
         
-        self.sceneView.antialiasingMode = .multisampling4X
-        self.sceneView.delegate = self
-        self.sceneView.autoenablesDefaultLighting = true
-        self.sceneView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapScreen)))
+        // set this to get the initial state setup
+        isErrorState = true
+
+        sceneView.antialiasingMode = .multisampling4X
+        sceneView.delegate = self
+        sceneView.autoenablesDefaultLighting = true
+        sceneView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapScreen)))
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide Planes", style: .plain, target: self, action: #selector(tapTogglePlanes))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide Planes", style: .plain, target: self, action: #selector(tapTogglePlanes))
         
-        self.configureWorldBottom()
+        configureWorldBottom()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,41 +61,62 @@ class PlanarMeerkatsViewController: UIViewController, ARSCNViewDelegate, SCNPhys
         if ARWorldTrackingConfiguration.isSupported {
             let configuration = ARWorldTrackingConfiguration()
             configuration.planeDetection = .horizontal
-            self.sceneView.session.run(configuration)
+            sceneView.session.run(configuration)
         }
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.sceneView.session.pause()
+        
+        sceneView.session.pause()
     }
     
     // MARK: - UI Events
     
     @IBAction func tapScreen(_ sender: UITapGestureRecognizer) {
-        _ = sender.location(in: self.sceneView)
+        _ = sender.location(in: sceneView)
         
         let box = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
+<<<<<<< Updated upstream
         let node = SCNScene(named: "art.scnassets/scaledMeerkat.scn")!.rootNode
 
 
         self.meerkats.append(node)
         addObject(node: node)
+=======
+        if let node = SCNScene(named: "art.scnassets/scaledMeerkat.scn")?.rootNode {
+            meerkats.append(node)
+            addObject(node: node)
+        }
+>>>>>>> Stashed changes
     }
     
     @objc private func tapTogglePlanes() {
-        self.showPlanes = !self.showPlanes
-        self.planes.values.forEach({ NodeGenerator.update(planeNode: $0, hidden: !self.showPlanes) })
-        self.navigationItem.rightBarButtonItem?.title = self.showPlanes ? "Hide Planes" : "Show Planes"
+        showPlanes = !showPlanes
+        planes.values.forEach({ NodeGenerator.update(planeNode: $0, hidden: !showPlanes) })
+        navigationItem.rightBarButtonItem?.title = showPlanes ? "Hide Planes" : "Show Planes"
+    }
+    
+    @IBAction func settingsTapped(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController else { return }
+        present(vc, animated: true, completion: nil)
     }
     
     // MARK: - Private Methods
     
+    private func startSession() {
+        guard ARWorldTrackingConfiguration.isSupported else { return }
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+        sceneView.session.run(configuration)
+    }
     
+    fileprivate func showErrorState() {
+        errorBGView.isHidden = !isErrorState
+        errorLabel.isHidden = !isErrorState
+    }
+
     private func configureWorldBottom() {
         let bottomPlane = SCNBox(width: 1000, height: 0.005, length: 1000, chamferRadius: 0)
         
@@ -93,12 +132,13 @@ class PlanarMeerkatsViewController: UIViewController, ARSCNViewDelegate, SCNPhys
         physicsBody.contactTestBitMask = CollisionTypes.shape.rawValue
         bottomNode.physicsBody = physicsBody
         
-        self.sceneView.scene.rootNode.addChildNode(bottomNode)
-        self.sceneView.scene.physicsWorld.contactDelegate = self
+        sceneView.scene.rootNode.addChildNode(bottomNode)
+        sceneView.scene.physicsWorld.contactDelegate = self
     }
     
     func addObject(node: SCNNode) {
-        let worldTransform = mainPlane!.worldTransform
+        guard let mainPlane = self.mainPlane else { return }
+        let worldTransform = mainPlane.worldTransform
         let magicOffset: Float = -0.8
         
         let minZOffset: Float = -0.5
@@ -106,6 +146,7 @@ class PlanarMeerkatsViewController: UIViewController, ARSCNViewDelegate, SCNPhys
         let minXOffset: Float =  -0.5
         let maxXOffset: Float = 0.5
         //node.position = SCNVector3Make(worldTransform.m31, worldTransform.m32, worldTransform.m33)
+<<<<<<< Updated upstream
         node.position = mainPlane!.position
         node.position.y = mainPlaneAnchor!.transform.columns.3.y
 
@@ -114,77 +155,122 @@ class PlanarMeerkatsViewController: UIViewController, ARSCNViewDelegate, SCNPhys
         node.position.x = Float.random(min: minXOffset, max: maxXOffset)
         
         self.sceneView.scene.rootNode.addChildNode(node)
+=======
+        node.position = mainPlane.position
+        node.position.y += magicOffset
+        node.position.z = Float.random(min: minZOffset, max: maxZOffset)
+        node.position.x = Float.random(min: minXOffset, max: maxXOffset)
+        sceneView.scene.rootNode.addChildNode(node)
+>>>>>>> Stashed changes
     }
 }
 
-extension PlanarMeerkatsViewController {
+// MARK: - ARSessionObserver
+
+extension PlanarMeerkatsViewController: ARSessionObserver {
+    
+    func sessionWasInterrupted(_ session: ARSession) {
+        errorLabel.text = "Session Interrupted!"
+        isErrorState = true
+    }
+    
+    func sessionInterruptionEnded(_ session: ARSession) {
+        startSession()
+    }
+    
+    func session(_ session: ARSession, didFailWithError error: Error) {
+        errorLabel.text = "Failed! - \(error.localizedDescription)"
+        isErrorState = true
+        startSession()
+    }
+    
+    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
+        var message: String? = nil
+        
+        switch camera.trackingState {
+        case .notAvailable:
+            message = "Tracking not available"
+        case .limited(.initializing):
+            message = "Initializing AR session"
+        case .limited(.excessiveMotion):
+            message = "Too much motion"
+        case .limited(.insufficientFeatures):
+            message = "Not enough surface details"
+        default:
+            isErrorState = false
+            return
+        }
+        
+        errorLabel.text = message
+        isErrorState = message != nil
+    }
+}
+
+// MARK: - SCNPhysicsContactDelegate
+
+extension PlanarMeerkatsViewController: SCNPhysicsContactDelegate {
+    
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        let mask = contact.nodeA.physicsBody!.categoryBitMask | contact.nodeB.physicsBody!.categoryBitMask
+        guard CollisionTypes(rawValue: mask) == [CollisionTypes.bottom, CollisionTypes.shape] else { return }
+        if contact.nodeA.physicsBody?.categoryBitMask == CollisionTypes.bottom.rawValue {
+            contact.nodeB.removeFromParentNode()
+        }
+        else {
+            contact.nodeA.removeFromParentNode()
+        }
+    }
+
+}
+
+// MARK: - ARSCNViewDelegate
+
+extension PlanarMeerkatsViewController: ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         
         let key = planeAnchor.identifier.uuidString
-        let planeNode = NodeGenerator.generatePlaneFrom(planeAnchor: planeAnchor, physics: true, hidden: !self.showPlanes)
+        let planeNode = NodeGenerator.generatePlaneFrom(planeAnchor: planeAnchor, physics: true, hidden: !showPlanes)
         node.addChildNode(planeNode)
+<<<<<<< Updated upstream
         self.planes[key] = planeNode
         if self.mainPlane == nil {
             self.mainPlane = planeNode
             self.mainPlaneAnchor = planeAnchor
+=======
+        planes[key] = planeNode
+        if mainPlane == nil {
+            mainPlane = planeNode
+        }
+        
+        DispatchQueue.main.async {
+            self.isErrorState = false
+>>>>>>> Stashed changes
         }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         let key = planeAnchor.identifier.uuidString
-        if let existingPlane = self.planes[key] {
-            NodeGenerator.update(planeNode: existingPlane, from: planeAnchor, hidden: !self.showPlanes)
+        if let existingPlane = planes[key] {
+            NodeGenerator.update(planeNode: existingPlane, from: planeAnchor, hidden: !showPlanes)
         }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
-        
         let key = planeAnchor.identifier.uuidString
-        if let existingPlane = self.planes[key] {
-            existingPlane.removeFromParentNode()
-            self.planes.removeValue(forKey: key)
-        }
+        guard let existingPlane = planes[key] else { return }
+        existingPlane.removeFromParentNode()
+        planes[key] = nil
     }
 }
 
-extension PlanarMeerkatsViewController {
-    
-    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        let mask = contact.nodeA.physicsBody!.categoryBitMask | contact.nodeB.physicsBody!.categoryBitMask
-        
-        if CollisionTypes(rawValue: mask) == [CollisionTypes.bottom, CollisionTypes.shape] {
-            if contact.nodeA.physicsBody!.categoryBitMask == CollisionTypes.bottom.rawValue {
-                contact.nodeB.removeFromParentNode()
-            } else {
-                contact.nodeA.removeFromParentNode()
-            }
-        }
-    }
-}
-
-struct CollisionTypes : OptionSet {
-    let rawValue: Int
-    
-    static let bottom  = CollisionTypes(rawValue: 1 << 0)
-    static let shape = CollisionTypes(rawValue: 1 << 1)
-}
-
+// MARK: - ARSessionDelegate
 
 extension PlanarMeerkatsViewController: ARSessionDelegate {
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
         print("updated anchor \(anchors)")
-    }
-}
-
-extension Float {
-    static func random(min: Float, max: Float) -> Float {
-        let f = Float(arc4random()) / Float(UInt32.max)
-        let d = max - min
-        let off = f * d
-        return min + off
     }
 }
