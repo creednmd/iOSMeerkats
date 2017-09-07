@@ -276,7 +276,7 @@
 				DEVELOPMENT_TEAM = 79J828YPG9;
 				INFOPLIST_FILE = iOSMeerkats/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.me.app.iOSMeerkats;
+				PRODUCT_BUNDLE_IDENTIFIER = com.google.iOSMeerkats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -290,7 +290,7 @@
 				DEVELOPMENT_TEAM = 79J828YPG9;
 				INFOPLIST_FILE = iOSMeerkats/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.me.app.iOSMeerkats;
+				PRODUCT_BUNDLE_IDENTIFIER = com.google.iOSMeerkats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
