@@ -259,7 +259,9 @@ extension PlanarMeerkatsViewController {
     func handleTouchFor(_ node : SCNNode) {
         print("Remove Meerkat \(node)")
         guard node != self.clippingFloorNode else { return }
+        guard node != self.sceneView.scene.rootNode else { return }
         node.removeFromParentNode()
+        
         score += multiplier
     }
     
@@ -323,9 +325,11 @@ extension PlanarMeerkatsViewController: ARSCNViewDelegate {
     }
     
     func beginGame() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
+        DispatchQueue.main.async {
+        self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
             self.tapScreen(UITapGestureRecognizer())
         })
+        }
     }
 }
 
