@@ -86,8 +86,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
     }
     
-    func 
-    
     private func configurePlaneDetection() {
         worldTrackingConfig = ARWorldTrackingSessionConfiguration()
         worldTrackingConfig.planeDetection = .horizontal
@@ -107,4 +105,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 SCNVector3Make(results[0].worldTransform.columns.3.x, results[0].worldTransform.columns.3.y, results[0].worldTransform.columns.3.z),
                 anchor)
     }
+}
+
+extension ViewController: ARSession {
+    
 }
