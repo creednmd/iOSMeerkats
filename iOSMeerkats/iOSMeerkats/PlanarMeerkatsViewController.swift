@@ -260,6 +260,7 @@ extension PlanarMeerkatsViewController {
         print("Remove Meerkat \(node)")
         guard node != self.clippingFloorNode else { return }
         node.removeFromParentNode()
+        score += multiplier
     }
     
 }
