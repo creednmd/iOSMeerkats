@@ -29,6 +29,7 @@ class PlanarMeerkatsViewController: UIViewController {
     fileprivate var mainPlane: SCNNode?
     fileprivate var mainPlaneAnchor: ARPlaneAnchor?
     fileprivate var clippingFloor: SCNFloor?
+    fileprivate var clippingFloorNode: SCNNode!
     fileprivate var timer: Timer?
     
     fileprivate var isErrorState = false {
@@ -111,7 +112,8 @@ class PlanarMeerkatsViewController: UIViewController {
         self.clippingFloor?.materials.first?.isLitPerPixel = false
         self.clippingFloor?.materials.first?.colorBufferWriteMask = .alpha
         
-        let clippingFloorNode = SCNNode(geometry: self.clippingFloor)
+        self.clippingFloorNode = SCNNode(geometry: self.clippingFloor)
+        
         clippingFloorNode.renderingOrder = -1
         clippingFloorNode.position = self.mainPlane!.position
         clippingFloorNode.position.y = mainPlaneAnchor!.transform.columns.3.y
@@ -226,6 +228,7 @@ extension PlanarMeerkatsViewController {
     
     func handleTouchFor(_ node : SCNNode) {
         print("Remove Meerkat \(node)")
+        guard node != self.clippingFloorNode else { return }
         node.removeFromParentNode()
     }
     
