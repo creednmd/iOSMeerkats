@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var errorBGView: UIVisualEffectView!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
     
     // MARK: - Properties
     
