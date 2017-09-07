@@ -149,8 +149,8 @@ class PlanarMeerkatsViewController: UIViewController {
         let worldTransform = mainPlane.worldTransform
         let magicOffset: Float = -0.8
         
-        let minZOffset: Float = -0.5
-        let maxZOffset: Float = 0.5
+        let minZOffset: Float = -1.0
+        let maxZOffset: Float = 0
         let minXOffset: Float =  -0.5
         let maxXOffset: Float = 0.5
         //node.position = SCNVector3Make(worldTransform.m31, worldTransform.m32, worldTransform.m33)
@@ -162,6 +162,9 @@ class PlanarMeerkatsViewController: UIViewController {
         var posNew = node.position
         posNew.y -= 0.2
         node.runAction(SCNAction.move(to: posNew, duration: 2.0))
+        
+        node.runAction(SCNAction.rotate(by: 200, around: SCNVector3Make(0, 1, 0), duration: 100))
+        
         sceneView.scene.rootNode.addChildNode(node)
     }
 }
