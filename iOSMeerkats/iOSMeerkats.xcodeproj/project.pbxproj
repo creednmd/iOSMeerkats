@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		916EB6CE1F61BFB6004F976D /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 916EB6CD1F61BFB6004F976D /* Settings.storyboard */; };
+		916EB6D01F61BFBE004F976D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916EB6CF1F61BFBE004F976D /* SettingsViewController.swift */; };
 		9295C8551F6192D5004E00A4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9295C8541F6192D5004E00A4 /* Utils.swift */; };
 		9295C8791F61B4DE004E00A4 /* PlanarMeerkatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9295C8781F61B4DE004E00A4 /* PlanarMeerkatsViewController.swift */; };
 		92EC63921F617D1400BF8329 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EC63911F617D1400BF8329 /* AppDelegate.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		916EB6CD1F61BFB6004F976D /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		916EB6CF1F61BFBE004F976D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9295C8531F61839B004E00A4 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		9295C8541F6192D5004E00A4 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		9295C8781F61B4DE004E00A4 /* PlanarMeerkatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanarMeerkatsViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +78,8 @@
 				92EC63931F617D1400BF8329 /* art.scnassets */,
 				92EC63951F617D1400BF8329 /* ViewController.swift */,
 				92EC63971F617D1400BF8329 /* Main.storyboard */,
+				916EB6CD1F61BFB6004F976D /* Settings.storyboard */,
+				916EB6CF1F61BFBE004F976D /* SettingsViewController.swift */,
 				92EC639A1F617D1400BF8329 /* Assets.xcassets */,
 				92EC639C1F617D1400BF8329 /* LaunchScreen.storyboard */,
 				92EC639F1F617D1400BF8329 /* Info.plist */,
@@ -145,6 +151,7 @@
 				92EC639E1F617D1400BF8329 /* LaunchScreen.storyboard in Resources */,
 				92EC639B1F617D1400BF8329 /* Assets.xcassets in Resources */,
 				92EC63991F617D1400BF8329 /* Main.storyboard in Resources */,
+				916EB6CE1F61BFB6004F976D /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +165,7 @@
 				92EC63961F617D1400BF8329 /* ViewController.swift in Sources */,
 				92EC63921F617D1400BF8329 /* AppDelegate.swift in Sources */,
 				9295C8791F61B4DE004E00A4 /* PlanarMeerkatsViewController.swift in Sources */,
+				916EB6D01F61BFBE004F976D /* SettingsViewController.swift in Sources */,
 				9295C8551F6192D5004E00A4 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,7 +299,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 79J828YPG9;
+				DEVELOPMENT_TEAM = LY9WTRZMPA;
 				INFOPLIST_FILE = iOSMeerkats/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.iOSMeerkats;
@@ -305,7 +313,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 79J828YPG9;
+				DEVELOPMENT_TEAM = LY9WTRZMPA;
 				INFOPLIST_FILE = iOSMeerkats/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.iOSMeerkats;

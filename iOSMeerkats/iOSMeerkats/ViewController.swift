@@ -72,6 +72,14 @@ class ViewController: UIViewController {
         startSession()
     }
     
+    // MARK: - Actions
+    
+    @IBAction func settingsTapped(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Settings", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController else { return }
+        present(vc, animated: true, completion: nil)
+    }
+    
     // MARK: - Private
     
     fileprivate func startSession() {

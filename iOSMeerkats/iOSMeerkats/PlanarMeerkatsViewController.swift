@@ -40,8 +40,8 @@ class PlanarMeerkatsViewController: UIViewController, ARSCNViewDelegate, SCNPhys
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if ARWorldTrackingSessionConfiguration.isSupported {
-            let configuration = ARWorldTrackingSessionConfiguration()
+        if ARWorldTrackingConfiguration.isSupported {
+            let configuration = ARWorldTrackingConfiguration()
             configuration.planeDetection = .horizontal
             self.sceneView.session.run(configuration)
         }
@@ -59,7 +59,7 @@ class PlanarMeerkatsViewController: UIViewController, ARSCNViewDelegate, SCNPhys
     // MARK: - UI Events
     
     @IBAction func tapScreen(_ sender: UITapGestureRecognizer) {
-        let point = sender.location(in: self.sceneView)
+        _ = sender.location(in: self.sceneView)
         
         let box = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
         let node = SCNScene(named: "art.scnassets/scaledMeerkat.scn")!.rootNode
@@ -188,5 +188,3 @@ extension Float {
         return min + off
     }
 }
-
-

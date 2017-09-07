@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="F1D-L7-hIz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -24,11 +24,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A59-0a-JOm">
-                                <rect key="frame" x="359" y="20" width="0.0" height="0.0"/>
+                                <rect key="frame" x="359" y="40" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0P3-F9-TJu">
+                                <rect key="frame" x="16" y="25" width="57" height="30"/>
+                                <state key="normal" title="Settings"/>
+                                <connections>
+                                    <action selector="settingsTapped:" destination="BV1-FR-VrT" eventType="touchUpInside" id="PxU-Gi-vN4"/>
+                                </connections>
+                            </button>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VK1-lV-fDh">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="KiA-x3-Ahh">
@@ -54,15 +61,17 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="BLU-G8-8cC" firstAttribute="top" secondItem="VK1-lV-fDh" secondAttribute="bottom" id="7Ki-SG-znE"/>
+                            <constraint firstItem="A59-0a-JOm" firstAttribute="top" secondItem="fZP-f0-DmR" secondAttribute="bottom" constant="20" id="804-5H-coZ"/>
                             <constraint firstItem="BLU-G8-8cC" firstAttribute="top" secondItem="GiJ-db-oqH" secondAttribute="bottom" id="GIK-Xq-oXX"/>
-                            <constraint firstItem="A59-0a-JOm" firstAttribute="top" secondItem="fZP-f0-DmR" secondAttribute="bottom" id="Lm6-fq-FFT"/>
                             <constraint firstAttribute="trailing" secondItem="A59-0a-JOm" secondAttribute="trailing" constant="16" id="UQ2-CM-poB"/>
+                            <constraint firstItem="0P3-F9-TJu" firstAttribute="centerY" secondItem="A59-0a-JOm" secondAttribute="centerY" id="Z5r-3I-Bh1"/>
                             <constraint firstItem="GiJ-db-oqH" firstAttribute="top" secondItem="Kc3-Sv-XF0" secondAttribute="top" id="clY-b7-9AG"/>
                             <constraint firstItem="VK1-lV-fDh" firstAttribute="leading" secondItem="Kc3-Sv-XF0" secondAttribute="leading" id="fXh-yd-V7y"/>
                             <constraint firstItem="VK1-lV-fDh" firstAttribute="top" secondItem="Kc3-Sv-XF0" secondAttribute="top" id="hPZ-hm-AUR"/>
                             <constraint firstItem="GiJ-db-oqH" firstAttribute="leading" secondItem="Kc3-Sv-XF0" secondAttribute="leading" id="iOv-Qg-eSe"/>
                             <constraint firstAttribute="trailing" secondItem="VK1-lV-fDh" secondAttribute="trailing" id="lpV-o5-8WB"/>
                             <constraint firstAttribute="trailing" secondItem="GiJ-db-oqH" secondAttribute="trailing" id="m1Q-ZR-gvz"/>
+                            <constraint firstItem="0P3-F9-TJu" firstAttribute="leading" secondItem="Kc3-Sv-XF0" secondAttribute="leading" constant="16" id="xtQ-PG-yL4"/>
                         </constraints>
                     </view>
                     <connections>

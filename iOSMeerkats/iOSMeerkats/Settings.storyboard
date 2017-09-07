@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Settings View Controller-->
+        <scene sceneID="eph-JY-eaZ">
+            <objects>
+                <viewController storyboardIdentifier="SettingsViewController" id="yKi-pU-aKz" customClass="SettingsViewController" customModule="iOSMeerkats" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GRh-Z7-JrZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In order to unlock some settings, you must first donate a minimum of £1.25million by tapping below!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7BX-Ar-09e">
+                                <rect key="frame" x="0.0" y="40" width="375" height="61"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLN-vf-a41">
+                                <rect key="frame" x="0.0" y="179.5" width="375" height="60"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Donate"/>
+                                <connections>
+                                    <action selector="donateTapped:" destination="yKi-pU-aKz" eventType="touchUpInside" id="kI5-Fe-tM6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eT-7S-jm5">
+                                <rect key="frame" x="0.0" y="239.5" width="375" height="60"/>
+                                <state key="normal" title="Close"/>
+                                <connections>
+                                    <action selector="closeTapped:" destination="yKi-pU-aKz" eventType="touchUpInside" id="QZN-sn-3k4"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9eT-7S-jm5" firstAttribute="height" secondItem="tLN-vf-a41" secondAttribute="height" id="112-eX-YRi"/>
+                            <constraint firstItem="tLN-vf-a41" firstAttribute="leading" secondItem="7BX-Ar-09e" secondAttribute="leading" id="6SU-Hw-fMM"/>
+                            <constraint firstItem="9eT-7S-jm5" firstAttribute="top" secondItem="tLN-vf-a41" secondAttribute="bottom" id="B6r-dJ-PzF"/>
+                            <constraint firstItem="7BX-Ar-09e" firstAttribute="top" secondItem="VhW-7E-n1G" secondAttribute="top" constant="20" id="CGf-0F-Q9h"/>
+                            <constraint firstItem="9eT-7S-jm5" firstAttribute="leading" secondItem="tLN-vf-a41" secondAttribute="leading" id="Dmz-wX-PC8"/>
+                            <constraint firstItem="VhW-7E-n1G" firstAttribute="trailing" secondItem="7BX-Ar-09e" secondAttribute="trailing" id="QH0-Hh-LSa"/>
+                            <constraint firstItem="tLN-vf-a41" firstAttribute="trailing" secondItem="7BX-Ar-09e" secondAttribute="trailing" id="T5E-St-Q3Z"/>
+                            <constraint firstItem="tLN-vf-a41" firstAttribute="top" secondItem="7BX-Ar-09e" secondAttribute="bottom" constant="78.5" id="bSL-mY-jXx"/>
+                            <constraint firstItem="7BX-Ar-09e" firstAttribute="leading" secondItem="VhW-7E-n1G" secondAttribute="leading" id="hkP-R8-gnB"/>
+                            <constraint firstItem="9eT-7S-jm5" firstAttribute="trailing" secondItem="tLN-vf-a41" secondAttribute="trailing" id="nV6-7z-4f0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="VhW-7E-n1G"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CK8-Is-KLv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-303.19999999999999" y="231.63418290854574"/>
+        </scene>
+    </scenes>
+</document>
