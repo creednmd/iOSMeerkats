@@ -77,18 +77,10 @@ class PlanarMeerkatsViewController: UIViewController {
         _ = sender.location(in: sceneView)
         
         let box = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
-<<<<<<< Updated upstream
-        let node = SCNScene(named: "art.scnassets/scaledMeerkat.scn")!.rootNode
-
-
-        self.meerkats.append(node)
-        addObject(node: node)
-=======
         if let node = SCNScene(named: "art.scnassets/scaledMeerkat.scn")?.rootNode {
             meerkats.append(node)
             addObject(node: node)
         }
->>>>>>> Stashed changes
     }
     
     @objc private func tapTogglePlanes() {
@@ -146,22 +138,13 @@ class PlanarMeerkatsViewController: UIViewController {
         let minXOffset: Float =  -0.5
         let maxXOffset: Float = 0.5
         //node.position = SCNVector3Make(worldTransform.m31, worldTransform.m32, worldTransform.m33)
-<<<<<<< Updated upstream
-        node.position = mainPlane!.position
+        node.position = mainPlane.position
         node.position.y = mainPlaneAnchor!.transform.columns.3.y
 
-        
         node.position.z = Float.random(min: minZOffset, max: maxZOffset)
         node.position.x = Float.random(min: minXOffset, max: maxXOffset)
         
-        self.sceneView.scene.rootNode.addChildNode(node)
-=======
-        node.position = mainPlane.position
-        node.position.y += magicOffset
-        node.position.z = Float.random(min: minZOffset, max: maxZOffset)
-        node.position.x = Float.random(min: minXOffset, max: maxXOffset)
         sceneView.scene.rootNode.addChildNode(node)
->>>>>>> Stashed changes
     }
 }
 
@@ -233,20 +216,14 @@ extension PlanarMeerkatsViewController: ARSCNViewDelegate {
         let key = planeAnchor.identifier.uuidString
         let planeNode = NodeGenerator.generatePlaneFrom(planeAnchor: planeAnchor, physics: true, hidden: !showPlanes)
         node.addChildNode(planeNode)
-<<<<<<< Updated upstream
-        self.planes[key] = planeNode
-        if self.mainPlane == nil {
-            self.mainPlane = planeNode
-            self.mainPlaneAnchor = planeAnchor
-=======
         planes[key] = planeNode
         if mainPlane == nil {
             mainPlane = planeNode
+            mainPlaneAnchor = planeAnchor
         }
         
         DispatchQueue.main.async {
             self.isErrorState = false
->>>>>>> Stashed changes
         }
     }
     
