@@ -245,10 +245,8 @@ extension PlanarMeerkatsViewController {
         let touch = touches.first!
         let location = touch.location(in: sceneView)
         let hitResults = sceneView.hitTest(location, options: nil)
-        if hitResults.count > 0 {
-            let result = hitResults.first!
-            handleTouchFor(result.node)
-        }
+        guard let node = hitResults.first?.node else { return }
+        handleTouchFor(node)
     }
     
     
