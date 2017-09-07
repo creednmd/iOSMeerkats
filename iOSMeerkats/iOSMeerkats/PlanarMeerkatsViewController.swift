@@ -52,7 +52,12 @@ class PlanarMeerkatsViewController: UIViewController {
         }
     }
     
-    fileprivate var elapsedTime: TimeInterval = 0
+    fileprivate var elapsedTime: TimeInterval = 0 {
+        didSet {
+            guard let multiplier = Multiplier(elapsedTime: Int(self.elapsedTime)) else { return }
+            self.multiplier = multiplier.rawValue
+        }
+    }
     fileprivate var multiplier = 1
     fileprivate var score = 0 {
         didSet {
