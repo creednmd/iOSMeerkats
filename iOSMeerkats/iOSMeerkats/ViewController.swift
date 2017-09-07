@@ -11,102 +11,170 @@ import SceneKit
 import ARKit
 
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     
-    private var worldTrackingConfig: ARWorldTrackingSessionConfiguration!
+    fileprivate var meerkats: [SCNNode] = []
+    fileprivate var planes: [String : SCNNode] = [:]
+    fileprivate var showPlanes: Bool = true
+    fileprivate var mainPlane: SCNNode?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set the view's delegate
-        sceneView.delegate = self
+        self.title = "Plane Mapper"
         
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
+        self.sceneView.antialiasingMode = .multisampling4X
+        self.sceneView.delegate = self
+        self.sceneView.autoenablesDefaultLighting = true
+        self.sceneView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapScreen)))
         
-        // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide Planes", style: .plain, target: self, action: #selector(tapTogglePlanes))
         
-        // Set the scene to the view
-        sceneView.scene = scene
+        self.configureWorldBottom()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-        
-        // Run the view's session
-        sceneView.session.run(configuration)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // Pause the view's session
-        sceneView.session.pause()
+        if ARWorldTrackingSessionConfiguration.isSupported {
+            let configuration = ARWorldTrackingSessionConfiguration()
+            configuration.planeDetection = .horizontal
+            self.sceneView.session.run(configuration)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.configurePlaneDetection()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.sceneView.session.pause()
     }
-
-    // MARK: - ARSCNViewDelegate
     
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
+    // MARK: - UI Events
     
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
+    @IBAction func tapScreen(_ sender: UITapGestureRecognizer) {
+        let point = sender.location(in: self.sceneView)
         
+        let box = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
+        let node = SCNScene(named: "meerkat")!.rootNode
+        self.meerkats.append(node)
+        addObject(node: node)
     }
     
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
+    @objc private func tapTogglePlanes() {
+        self.showPlanes = !self.showPlanes
+        self.planes.values.forEach({ NodeGenerator.update(planeNode: $0, hidden: !self.showPlanes) })
+        self.navigationItem.rightBarButtonItem?.title = self.showPlanes ? "Hide Planes" : "Show Planes"
     }
     
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
+    // MARK: - Private Methods
+    
+    
+    private func configureWorldBottom() {
+        let bottomPlane = SCNBox(width: 1000, height: 0.005, length: 1000, chamferRadius: 0)
         
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor(white: 1.0, alpha: 0.0)
+        bottomPlane.materials = [material]
+        
+        let bottomNode = SCNNode(geometry: bottomPlane)
+        bottomNode.position = SCNVector3(x: 0, y: -10, z: 0)
+        
+        let physicsBody = SCNPhysicsBody.static()
+        physicsBody.categoryBitMask = CollisionTypes.bottom.rawValue
+        physicsBody.contactTestBitMask = CollisionTypes.shape.rawValue
+        bottomNode.physicsBody = physicsBody
+        
+        self.sceneView.scene.rootNode.addChildNode(bottomNode)
+        self.sceneView.scene.physicsWorld.contactDelegate = self
     }
     
-    private func configurePlaneDetection() {
-        worldTrackingConfig = ARWorldTrackingSessionConfiguration()
-        worldTrackingConfig.planeDetection = .horizontal
-        worldTrackingConfig.isLightEstimationEnabled = false
-        sceneView.session.run(worldTrackingConfig)
-    }
-    
-    private func anyPlaneFrom(location:CGPoint, usingExtent:Bool = true) -> (SCNNode, SCNVector3, ARPlaneAnchor)? {
-        let results = sceneView.hitTest(location,
-                                        types: usingExtent ? ARHitTestResult.ResultType.existingPlaneUsingExtent : ARHitTestResult.ResultType.existingPlane)
-        
-        guard results.count > 0,
-            let anchor = results[0].anchor as? ARPlaneAnchor,
-            let node = sceneView.node(for: anchor) else { return nil }
-        
-        return (node,
-                SCNVector3Make(results[0].worldTransform.columns.3.x, results[0].worldTransform.columns.3.y, results[0].worldTransform.columns.3.z),
-                anchor)
+    func addObject(node: SCNNode) {
+        let worldTransform = mainPlane!.worldTransform
+        let magicOffset: Float = -0.7
+        let minZOffset: Float = -0.5
+        let maxZOffset: Float = 0.5
+        let minXOffset: Float =  -0.5
+        let maxXOffset: Float = 0.5
+        //node.position = SCNVector3Make(worldTransform.m31, worldTransform.m32, worldTransform.m33)
+        node.position = mainPlane!.position
+        node.position.y += magicOffset
+        node.position.z = Float.random(min: minZOffset, max: maxZOffset)
+        node.position.x = Float.random(min: minXOffset, max: maxXOffset)
+        self.sceneView.scene.rootNode.addChildNode(node)
     }
 }
 
-extension ViewController: ARSession {
+extension ViewController {
     
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+        
+        let key = planeAnchor.identifier.uuidString
+        let planeNode = NodeGenerator.generatePlaneFrom(planeAnchor: planeAnchor, physics: true, hidden: !self.showPlanes)
+        node.addChildNode(planeNode)
+        self.planes[key] = planeNode
+        self.mainPlane = planeNode
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+        
+        let key = planeAnchor.identifier.uuidString
+        if let existingPlane = self.planes[key] {
+            NodeGenerator.update(planeNode: existingPlane, from: planeAnchor, hidden: !self.showPlanes)
+        }
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
+        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+        
+        let key = planeAnchor.identifier.uuidString
+        if let existingPlane = self.planes[key] {
+            existingPlane.removeFromParentNode()
+            self.planes.removeValue(forKey: key)
+        }
+    }
+}
+
+extension ViewController {
+    
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        let mask = contact.nodeA.physicsBody!.categoryBitMask | contact.nodeB.physicsBody!.categoryBitMask
+        
+        if CollisionTypes(rawValue: mask) == [CollisionTypes.bottom, CollisionTypes.shape] {
+            if contact.nodeA.physicsBody!.categoryBitMask == CollisionTypes.bottom.rawValue {
+                contact.nodeB.removeFromParentNode()
+            } else {
+                contact.nodeA.removeFromParentNode()
+            }
+        }
+    }
+}
+
+struct CollisionTypes : OptionSet {
+    let rawValue: Int
+    
+    static let bottom  = CollisionTypes(rawValue: 1 << 0)
+    static let shape = CollisionTypes(rawValue: 1 << 1)
+}
+
+
+extension ViewController: ARSessionDelegate {
+    func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+        print("updated anchor \(anchors)")
+    }
+}
+
+extension Float {
+    static func random(min: Float, max: Float) -> Float {
+        let f = Float(arc4random()) / Float(UInt32.max)
+        let d = max - min
+        let off = f * d
+        return min + off
+    }
 }

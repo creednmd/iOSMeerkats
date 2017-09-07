@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9295C8551F6192D5004E00A4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9295C8541F6192D5004E00A4 /* Utils.swift */; };
 		92EC63921F617D1400BF8329 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EC63911F617D1400BF8329 /* AppDelegate.swift */; };
 		92EC63941F617D1400BF8329 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 92EC63931F617D1400BF8329 /* art.scnassets */; };
 		92EC63961F617D1400BF8329 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EC63951F617D1400BF8329 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		9295C8531F61839B004E00A4 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		9295C8541F6192D5004E00A4 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		92EC638E1F617D1400BF8329 /* iOSMeerkats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSMeerkats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92EC63911F617D1400BF8329 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92EC63931F617D1400BF8329 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				92EC639A1F617D1400BF8329 /* Assets.xcassets */,
 				92EC639C1F617D1400BF8329 /* LaunchScreen.storyboard */,
 				92EC639F1F617D1400BF8329 /* Info.plist */,
+				9295C8541F6192D5004E00A4 /* Utils.swift */,
 			);
 			path = iOSMeerkats;
 			sourceTree = "<group>";
@@ -151,6 +154,7 @@
 			files = (
 				92EC63961F617D1400BF8329 /* ViewController.swift in Sources */,
 				92EC63921F617D1400BF8329 /* AppDelegate.swift in Sources */,
+				9295C8551F6192D5004E00A4 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
