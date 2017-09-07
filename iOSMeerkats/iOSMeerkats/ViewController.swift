@@ -15,7 +15,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     
-    private var worldTrackingConfig: ARWorldTrackingSessionConfiguration!
+    private var worldTrackingConfig: ARWorldTrackingConfiguration!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +26,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
-        // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
-        // Set the scene to the view
-        sceneView.scene = scene
+        // Create and set the scene
+        if let scene = SCNScene(named: "art.scnassets/ship.scn") {
+            sceneView.scene = scene
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,7 +86,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     private func configurePlaneDetection() {
-        worldTrackingConfig = ARWorldTrackingSessionConfiguration()
+        worldTrackingConfig = ARWorldTrackingConfiguration()
         worldTrackingConfig.planeDetection = .horizontal
         worldTrackingConfig.isLightEstimationEnabled = false
         sceneView.session.run(worldTrackingConfig)
@@ -107,6 +106,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
 }
 
-extension ViewController: ARSession {
-    
-}
+//extension ViewController: ARSession {
+//    
+//}
+
