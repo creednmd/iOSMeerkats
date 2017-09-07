@@ -10,6 +10,22 @@ import UIKit
 import SceneKit
 import ARKit
 
+enum Multiplier: Int {
+    case first = 1
+    case second = 2
+    case third = 3
+    
+    init?(elapsedTime: Int) {
+        switch elapsedTime {
+        case let x where x >= 10:
+            self = .second
+        case let x where x >= 20:
+            self = .third
+        default:
+            return nil
+        }
+    }
+}
 
 class PlanarMeerkatsViewController: UIViewController {
     
@@ -35,6 +51,14 @@ class PlanarMeerkatsViewController: UIViewController {
             showErrorState()
         }
     }
+    
+    fileprivate var elapsedTime: TimeInterval = 0
+    fileprivate var multiplier = 1
+    fileprivate var score = 0 {
+        didSet {
+            scoreLabel.text = "\(score)"
+        }
+    }
 
     // MARK: - Lifecycle
     
@@ -45,6 +69,7 @@ class PlanarMeerkatsViewController: UIViewController {
         
         // set this to get the initial state setup
         isErrorState = true
+        score = 0
 
         sceneView.antialiasingMode = .multisampling4X
         sceneView.delegate = self
