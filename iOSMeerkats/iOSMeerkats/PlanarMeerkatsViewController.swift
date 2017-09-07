@@ -253,7 +253,7 @@ extension PlanarMeerkatsViewController {
         print("Remove Meerkat \(node)")
         guard node != self.clippingFloorNode else { return }
         guard node != self.sceneView.scene.rootNode else { return }
-        
+        Sounder.playSqueak()
         score += multiplier
 
         var posNew = node.position
@@ -336,5 +336,15 @@ extension PlanarMeerkatsViewController: ARSCNViewDelegate {
 extension PlanarMeerkatsViewController: ARSessionDelegate {
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
         print("updated anchor \(anchors)")
+    }
+}
+
+class Sounder {
+    static func playSqueak() {
+        let string = Bundle.main.path(forResource: "thing", ofType: "wav")!
+        let url = URL(fileURLWithPath: string) as CFURL
+        var effect: SystemSoundID = 0
+        AudioServicesCreateSystemSoundID(url, &effect)
+        AudioServicesPlaySystemSound(effect)
     }
 }

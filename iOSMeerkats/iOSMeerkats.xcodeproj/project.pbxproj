@@ -11,6 +11,7 @@
 		916EB6D01F61BFBE004F976D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916EB6CF1F61BFBE004F976D /* SettingsViewController.swift */; };
 		916EB6D31F61C93D004F976D /* CollisionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916EB6D21F61C93D004F976D /* CollisionTypes.swift */; };
 		916EB6D51F61C94F004F976D /* Float+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916EB6D41F61C94F004F976D /* Float+Extension.swift */; };
+		9257A9301F61EBAE00B09693 /* thing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9257A92F1F61EBAE00B09693 /* thing.wav */; };
 		9295C8551F6192D5004E00A4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9295C8541F6192D5004E00A4 /* Utils.swift */; };
 		9295C8791F61B4DE004E00A4 /* PlanarMeerkatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9295C8781F61B4DE004E00A4 /* PlanarMeerkatsViewController.swift */; };
 		92EC63921F617D1400BF8329 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EC63911F617D1400BF8329 /* AppDelegate.swift */; };
@@ -27,6 +28,7 @@
 		916EB6CF1F61BFBE004F976D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		916EB6D21F61C93D004F976D /* CollisionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionTypes.swift; sourceTree = "<group>"; };
 		916EB6D41F61C94F004F976D /* Float+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Extension.swift"; sourceTree = "<group>"; };
+		9257A92F1F61EBAE00B09693 /* thing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = thing.wav; sourceTree = "<group>"; };
 		9295C8531F61839B004E00A4 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		9295C8541F6192D5004E00A4 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		9295C8781F61B4DE004E00A4 /* PlanarMeerkatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanarMeerkatsViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				92EC639F1F617D1400BF8329 /* Info.plist */,
 				9295C8541F6192D5004E00A4 /* Utils.swift */,
 				9295C8781F61B4DE004E00A4 /* PlanarMeerkatsViewController.swift */,
+				9257A92F1F61EBAE00B09693 /* thing.wav */,
 				916EB6D21F61C93D004F976D /* CollisionTypes.swift */,
 				916EB6D41F61C94F004F976D /* Float+Extension.swift */,
 				C0746EC91F61D7310002B406 /* Explosion.scnp */,
@@ -171,6 +174,7 @@
 				92EC639B1F617D1400BF8329 /* Assets.xcassets in Resources */,
 				92EC63991F617D1400BF8329 /* Main.storyboard in Resources */,
 				916EB6CE1F61BFB6004F976D /* Settings.storyboard in Resources */,
+				9257A9301F61EBAE00B09693 /* thing.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
