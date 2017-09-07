@@ -174,8 +174,8 @@ class PlanarMeerkatsViewController: UIViewController {
         let worldTransform = mainPlane.worldTransform
         let magicOffset: Float = -0.8
         
-        let minZOffset: Float = -0.5
-        let maxZOffset: Float = 0.5
+        let minZOffset: Float = -1.0
+        let maxZOffset: Float = 0
         let minXOffset: Float =  -0.5
         let maxXOffset: Float = 0.5
         //node.position = SCNVector3Make(worldTransform.m31, worldTransform.m32, worldTransform.m33)
@@ -187,6 +187,9 @@ class PlanarMeerkatsViewController: UIViewController {
         var posNew = node.position
         posNew.y -= 0.2
         node.runAction(SCNAction.move(to: posNew, duration: 2.0))
+        
+        node.runAction(SCNAction.rotate(by: 200, around: SCNVector3Make(0, 1, 0), duration: 100))
+        
         sceneView.scene.rootNode.addChildNode(node)
     }
 }
@@ -231,6 +234,28 @@ extension PlanarMeerkatsViewController: ARSessionObserver {
         isErrorState = message != nil
     }
 }
+
+
+extension PlanarMeerkatsViewController {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        let location = touch.location(in: sceneView)
+        let hitResults = sceneView.hitTest(location, options: nil)
+        if hitResults.count > 0 {
+            let result = hitResults.first!
+            handleTouchFor(result.node)
+        }
+    }
+    
+    
+    func handleTouchFor(_ node : SCNNode) {
+        print("Remove Meerkat \(node)")
+        node.removeFromParentNode()
+    }
+    
+}
+
 
 // MARK: - SCNPhysicsContactDelegate
 
