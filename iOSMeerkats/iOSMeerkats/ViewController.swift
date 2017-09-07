@@ -11,16 +11,17 @@ import SceneKit
 import ARKit
 
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ViewController: UIViewController {
 
     // MARK: - Outlets
     
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var errorBGView: UIVisualEffectView!
     @IBOutlet weak var errorLabel: UILabel!
-
+    
     // MARK: - Properties
     
+    var meerkat = SCNScene(named: "art.scnassets/scaledMeerkat.scn")
     var isErrorState = false {
         didSet {
             showErrorState()
@@ -32,6 +33,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // set this to get the initial state setup
+        isErrorState = true
+        
         // Set the view's delegate
         sceneView.delegate = self
         
@@ -39,8 +43,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         // Create and set the scene
-        if let scene = SCNScene(named: "art.scnassets/meerkat.dae") {
-            sceneView.scene = scene
+        if let meerkat = self.meerkat {
+            sceneView.scene = meerkat
         }
     }
     
@@ -82,16 +86,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         errorLabel.isHidden = !isErrorState
     }
     
-    
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
-    
     private func anyPlaneFrom(location:CGPoint, usingExtent:Bool = true) -> (SCNNode, SCNVector3, ARPlaneAnchor)? {
         let results = sceneView.hitTest(location,
                                         types: usingExtent ? ARHitTestResult.ResultType.existingPlaneUsingExtent : ARHitTestResult.ResultType.existingPlane)
@@ -108,11 +102,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
 // MARK: - ARSCNViewDelegate
 
-//extension ViewController: ARSCNViewDelegate {
-//    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-//        //
-//    }
-//}
+extension ViewController: ARSCNViewDelegate {
+    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        DispatchQueue.main.async {
+            self.isErrorState = false
+        }
+    }    
+}
 
 // MARK: - ARSessionObserver
 extension ViewController: ARSessionObserver {
@@ -150,11 +147,6 @@ extension ViewController: ARSessionObserver {
         }
         
         errorLabel.text = message
-        isErrorState = true
+        isErrorState = message != nil
     }
 }
-
-//extension ViewController: ARSession {
-//    
-//}
-
