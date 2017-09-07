@@ -29,6 +29,7 @@ class PlanarMeerkatsViewController: UIViewController {
     fileprivate var mainPlane: SCNNode?
     fileprivate var mainPlaneAnchor: ARPlaneAnchor?
     fileprivate var clippingFloor: SCNFloor?
+    fileprivate var timer: Timer?
     
     fileprivate var isErrorState = false {
         didSet {
@@ -75,7 +76,6 @@ class PlanarMeerkatsViewController: UIViewController {
     // MARK: - UI Events
     
     @IBAction func tapScreen(_ sender: UITapGestureRecognizer) {
-        _ = sender.location(in: sceneView)
         
         let box = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
         if let node = SCNScene(named: "art.scnassets/scaledMeerkat.scn")?.rootNode {
@@ -242,6 +242,7 @@ extension PlanarMeerkatsViewController: ARSCNViewDelegate {
             mainPlane = planeNode
             mainPlaneAnchor = planeAnchor
             self.addClippingFloor()
+            self.beginGame()
         }
         
         DispatchQueue.main.async {
@@ -263,6 +264,12 @@ extension PlanarMeerkatsViewController: ARSCNViewDelegate {
         guard let existingPlane = planes[key] else { return }
         existingPlane.removeFromParentNode()
         planes[key] = nil
+    }
+    
+    func beginGame() {
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
+            self.tapScreen(UITapGestureRecognizer())
+        })
     }
 }
 
