@@ -27,7 +27,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="13T-PM-3qk">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <string key="image">animals-friend-tiger-shipwreck-predator-family-sea-drama-meerkat-fantasy-animation-voyage-ocean-adventure-life-funny-smiling-animal-photos</string>
+                                <string key="image">animals-friend-tiger-shipwreck-predator-family-sea-drama-meerkat-fantasy-animation-voyage-ocean-adventure-life-funny-smiling-animal-photos-1</string>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOSMeerkats" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqx-Dg-ivz">
                                 <rect key="frame" x="57" y="457" width="261" height="53"/>
@@ -53,8 +53,8 @@
         </scene>
     </scenes>
     <resources>
-        <image width="1920" height="1080">
-            <string key="name">animals-friend-tiger-shipwreck-predator-family-sea-drama-meerkat-fantasy-animation-voyage-ocean-adventure-life-funny-smiling-animal-photos</string>
+        <image width="640" height="360">
+            <string key="name">animals-friend-tiger-shipwreck-predator-family-sea-drama-meerkat-fantasy-animation-voyage-ocean-adventure-life-funny-smiling-animal-photos-1</string>
         </image>
     </resources>
 </document>
