@@ -107,10 +107,9 @@ class PlanarMeerkatsViewController: UIViewController {
     
     @IBAction func tapScreen(_ sender: UITapGestureRecognizer) {
         for _ in 0..<multiplier {
-            if let node = SCNScene(named: "art.scnassets/scaledMeerkat.scn")?.rootNode {
-                meerkats.append(node)
-                addObject(node: node)
-            }
+            guard let node = SCNScene(named: "art.scnassets/scaledMeerkat.scn")?.rootNode else { continue }
+            meerkats.append(node)
+            addObject(node: node)
         }
     }
     
