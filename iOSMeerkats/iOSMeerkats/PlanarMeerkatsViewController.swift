@@ -81,7 +81,6 @@ class PlanarMeerkatsViewController: UIViewController {
         sceneView.antialiasingMode = .multisampling4X
         sceneView.delegate = self
         sceneView.autoenablesDefaultLighting = true
-        sceneView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapScreen)))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide Planes", style: .plain, target: self, action: #selector(tapTogglePlanes))
         
@@ -192,7 +191,7 @@ class PlanarMeerkatsViewController: UIViewController {
         node.position.z = Float.random(min: minZOffset, max: maxZOffset)
         node.position.x = Float.random(min: minXOffset, max: maxXOffset)
         var posNew = node.position
-        posNew.y -= 0.2
+        posNew.y -= 0.4
         node.runAction(SCNAction.move(to: posNew, duration: 2.0))
         
         node.runAction(SCNAction.rotate(by: 200, around: SCNVector3Make(0, 1, 0), duration: 100))
