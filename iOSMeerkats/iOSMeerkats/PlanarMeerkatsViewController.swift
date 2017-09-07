@@ -180,5 +180,3 @@ extension Float {
         return min + off
     }
 }
-
-
