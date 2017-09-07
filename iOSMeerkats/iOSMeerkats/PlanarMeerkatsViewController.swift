@@ -29,6 +29,10 @@ enum Multiplier: Int {
 
 class PlanarMeerkatsViewController: UIViewController {
     
+    // MARK: - Constants
+    
+    static let MAXMEERKATS = 50
+    
     // MARK: - Outlets
     
     @IBOutlet weak var sceneView: ARSCNView!
@@ -106,10 +110,20 @@ class PlanarMeerkatsViewController: UIViewController {
     // MARK: - UI Events
     
     @IBAction func tapScreen(_ sender: UITapGestureRecognizer) {
-        for _ in 0..<multiplier {
-            guard let node = SCNScene(named: "art.scnassets/scaledMeerkat.scn")?.rootNode else { continue }
-            meerkats.append(node)
-            addObject(node: node)
+        if self.sceneView.scene.rootNode.childNodes.count > PlanarMeerkatsViewController.MAXMEERKATS {
+            let alert = UIAlertController(title: "YOU LOST", message: "The meerkats have taken over. Way to go.", preferredStyle: .alert)
+            let okay = UIAlertAction(title: "Okay", style: .default, handler: { (_) in
+                fatalError()
+            })
+            alert.addAction(okay)
+            self.present(alert, animated: true, completion: nil)
+        }
+        else {
+            for _ in 0..<multiplier {
+                guard let node = SCNScene(named: "art.scnassets/scaledMeerkat.scn")?.rootNode else { continue }
+                meerkats.append(node)
+                addObject(node: node)
+            }
         }
     }
     
@@ -323,7 +337,7 @@ extension PlanarMeerkatsViewController: ARSCNViewDelegate {
     
     func beginGame() {
         DispatchQueue.main.async {
-            self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
+            self.timer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true, block: { _ in
                 self.elapsedTime += 0.1
                 self.tapScreen(UITapGestureRecognizer())
             })
