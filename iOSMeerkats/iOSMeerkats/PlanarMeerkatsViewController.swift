@@ -273,6 +273,7 @@ extension PlanarMeerkatsViewController {
         var posNew = node.position
         posNew.y -= 0.4
         node.runAction(SCNAction.move(to: posNew, duration: 2.0)) {
+            
             node.removeFromParentNode()
         }
     }
