@@ -106,9 +106,8 @@ class PlanarMeerkatsViewController: UIViewController {
     // MARK: - UI Events
     
     @IBAction func tapScreen(_ sender: UITapGestureRecognizer) {
-        
-        let box = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
-        if let node = SCNScene(named: "art.scnassets/scaledMeerkat.scn")?.rootNode {
+        for _ in 0..<multiplier {
+            guard let node = SCNScene(named: "art.scnassets/scaledMeerkat.scn")?.rootNode else { continue }
             meerkats.append(node)
             addObject(node: node)
         }
@@ -177,23 +176,22 @@ class PlanarMeerkatsViewController: UIViewController {
     
     func addObject(node: SCNNode) {
         guard let mainPlane = self.mainPlane else { return }
-        let worldTransform = mainPlane.worldTransform
-        let magicOffset: Float = -0.8
         
         let minZOffset: Float = -1.0
         let maxZOffset: Float = 0
         let minXOffset: Float =  -0.5
         let maxXOffset: Float = 0.5
-        //node.position = SCNVector3Make(worldTransform.m31, worldTransform.m32, worldTransform.m33)
+
         node.position = mainPlane.position
-        node.position.y = mainPlaneAnchor!.transform.columns.3.y
+        node.position.y = mainPlaneAnchor!.transform.columns.3.y - 0.4
 
         node.position.z = Float.random(min: minZOffset, max: maxZOffset)
         node.position.x = Float.random(min: minXOffset, max: maxXOffset)
-        var posNew = node.position
-        posNew.y -= 0.4
-        node.runAction(SCNAction.move(to: posNew, duration: 2.0))
         
+        var posNew = node.position
+        posNew.y = mainPlaneAnchor!.transform.columns.3.y
+        node.runAction(SCNAction.move(to: posNew, duration: 2.0)) {}
+
         node.runAction(SCNAction.rotate(by: 200, around: SCNVector3Make(0, 1, 0), duration: 100))
         
         sceneView.scene.rootNode.addChildNode(node)
@@ -243,27 +241,27 @@ extension PlanarMeerkatsViewController: ARSessionObserver {
 
 
 extension PlanarMeerkatsViewController {
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let location = touch.location(in: sceneView)
         let hitResults = sceneView.hitTest(location, options: nil)
-        if hitResults.count > 0 {
-            let result = hitResults.first!
-            handleTouchFor(result.node)
-        }
+        guard let node = hitResults.first?.node else { return }
+        handleTouchFor(node)
     }
-    
     
     func handleTouchFor(_ node : SCNNode) {
         print("Remove Meerkat \(node)")
         guard node != self.clippingFloorNode else { return }
         guard node != self.sceneView.scene.rootNode else { return }
-        node.removeFromParentNode()
         
         score += multiplier
+
+        var posNew = node.position
+        posNew.y -= 0.4
+        node.runAction(SCNAction.move(to: posNew, duration: 2.0)) {
+            node.removeFromParentNode()
+        }
     }
-    
 }
 
 
@@ -325,9 +323,10 @@ extension PlanarMeerkatsViewController: ARSCNViewDelegate {
     
     func beginGame() {
         DispatchQueue.main.async {
-        self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
-            self.tapScreen(UITapGestureRecognizer())
-        })
+            self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
+                self.elapsedTime += 0.1
+                self.tapScreen(UITapGestureRecognizer())
+            })
         }
     }
 }
