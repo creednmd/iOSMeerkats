@@ -10,9 +10,12 @@ import UIKit
 import SceneKit
 import ARKit
 
+
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
+    
+    private var worldTrackingConfig: ARWorldTrackingSessionConfiguration!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +50,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.configurePlaneDetection()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
@@ -76,5 +84,27 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
+    }
+    
+    func 
+    
+    private func configurePlaneDetection() {
+        worldTrackingConfig = ARWorldTrackingSessionConfiguration()
+        worldTrackingConfig.planeDetection = .horizontal
+        worldTrackingConfig.isLightEstimationEnabled = false
+        sceneView.session.run(worldTrackingConfig)
+    }
+    
+    private func anyPlaneFrom(location:CGPoint, usingExtent:Bool = true) -> (SCNNode, SCNVector3, ARPlaneAnchor)? {
+        let results = sceneView.hitTest(location,
+                                        types: usingExtent ? ARHitTestResult.ResultType.existingPlaneUsingExtent : ARHitTestResult.ResultType.existingPlane)
+        
+        guard results.count > 0,
+            let anchor = results[0].anchor as? ARPlaneAnchor,
+            let node = sceneView.node(for: anchor) else { return nil }
+        
+        return (node,
+                SCNVector3Make(results[0].worldTransform.columns.3.x, results[0].worldTransform.columns.3.y, results[0].worldTransform.columns.3.z),
+                anchor)
     }
 }

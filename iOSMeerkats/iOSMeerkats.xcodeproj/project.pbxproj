@@ -16,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9295C8531F61839B004E00A4 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		92EC638E1F617D1400BF8329 /* iOSMeerkats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSMeerkats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92EC63911F617D1400BF8329 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92EC63931F617D1400BF8329 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -37,11 +38,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9295C8521F61839B004E00A4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9295C8531F61839B004E00A4 /* ARKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		92EC63851F617D1400BF8329 = {
 			isa = PBXGroup;
 			children = (
 				92EC63901F617D1400BF8329 /* iOSMeerkats */,
 				92EC638F1F617D1400BF8329 /* Products */,
+				9295C8521F61839B004E00A4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -316,6 +326,7 @@
 				92EC63A41F617D1400BF8329 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
