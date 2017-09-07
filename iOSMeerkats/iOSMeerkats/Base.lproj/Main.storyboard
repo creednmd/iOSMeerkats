@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,16 +23,43 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GiJ-db-oqH">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VK1-lV-fDh">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="KiA-x3-Ahh">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0U-Aa-Q2r">
+                                            <rect key="frame" x="30" y="318.5" width="315" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="x0U-Aa-Q2r" firstAttribute="leading" secondItem="KiA-x3-Ahh" secondAttribute="leading" constant="30" id="BV0-Kw-hJT"/>
+                                        <constraint firstItem="x0U-Aa-Q2r" firstAttribute="centerY" secondItem="KiA-x3-Ahh" secondAttribute="centerY" id="bXC-PA-qrd"/>
+                                        <constraint firstAttribute="trailing" secondItem="x0U-Aa-Q2r" secondAttribute="trailing" constant="30" id="xA1-fi-sdd"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="BLU-G8-8cC" firstAttribute="top" secondItem="VK1-lV-fDh" secondAttribute="bottom" id="7Ki-SG-znE"/>
                             <constraint firstItem="BLU-G8-8cC" firstAttribute="top" secondItem="GiJ-db-oqH" secondAttribute="bottom" id="GIK-Xq-oXX"/>
                             <constraint firstItem="GiJ-db-oqH" firstAttribute="top" secondItem="Kc3-Sv-XF0" secondAttribute="top" id="clY-b7-9AG"/>
+                            <constraint firstItem="VK1-lV-fDh" firstAttribute="leading" secondItem="Kc3-Sv-XF0" secondAttribute="leading" id="fXh-yd-V7y"/>
+                            <constraint firstItem="VK1-lV-fDh" firstAttribute="top" secondItem="Kc3-Sv-XF0" secondAttribute="top" id="hPZ-hm-AUR"/>
                             <constraint firstItem="GiJ-db-oqH" firstAttribute="leading" secondItem="Kc3-Sv-XF0" secondAttribute="leading" id="iOv-Qg-eSe"/>
+                            <constraint firstAttribute="trailing" secondItem="VK1-lV-fDh" secondAttribute="trailing" id="lpV-o5-8WB"/>
                             <constraint firstAttribute="trailing" secondItem="GiJ-db-oqH" secondAttribute="trailing" id="m1Q-ZR-gvz"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="errorBGView" destination="VK1-lV-fDh" id="PHs-pb-eeW"/>
+                        <outlet property="errorLabel" destination="x0U-Aa-Q2r" id="neJ-P8-Ukd"/>
                         <outlet property="sceneView" destination="GiJ-db-oqH" id="cgu-uE-4Yl"/>
                     </connections>
                 </viewController>
