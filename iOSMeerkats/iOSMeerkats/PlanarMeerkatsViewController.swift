@@ -54,7 +54,6 @@ class PlanarMeerkatsViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide Planes", style: .plain, target: self, action: #selector(tapTogglePlanes))
         
         configureWorldBottom()
-        self.addClippingFloor()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,8 +110,12 @@ class PlanarMeerkatsViewController: UIViewController {
         self.clippingFloor?.reflectivity = 0
         self.clippingFloor?.materials.first?.isLitPerPixel = false
         self.clippingFloor?.materials.first?.colorBufferWriteMask = .alpha
-
+        
         let clippingFloorNode = SCNNode(geometry: self.clippingFloor)
+        clippingFloorNode.renderingOrder = -1
+        clippingFloorNode.position = self.mainPlane!.position
+        clippingFloorNode.position.y = mainPlaneAnchor!.transform.columns.3.y
+
         
         self.sceneView.scene.rootNode.addChildNode(clippingFloorNode)
     }
@@ -146,8 +149,8 @@ class PlanarMeerkatsViewController: UIViewController {
         let worldTransform = mainPlane.worldTransform
         let magicOffset: Float = -0.8
         
-        let minZOffset: Float = -0.5
-        let maxZOffset: Float = 0.5
+        let minZOffset: Float = -1.0
+        let maxZOffset: Float = 0
         let minXOffset: Float =  -0.5
         let maxXOffset: Float = 0.5
         //node.position = SCNVector3Make(worldTransform.m31, worldTransform.m32, worldTransform.m33)
@@ -156,6 +159,11 @@ class PlanarMeerkatsViewController: UIViewController {
 
         node.position.z = Float.random(min: minZOffset, max: maxZOffset)
         node.position.x = Float.random(min: minXOffset, max: maxXOffset)
+        var posNew = node.position
+        posNew.y -= 0.2
+        node.runAction(SCNAction.move(to: posNew, duration: 2.0))
+        
+        node.runAction(SCNAction.rotate(by: 200, around: SCNVector3Make(0, 1, 0), duration: 100))
         
         sceneView.scene.rootNode.addChildNode(node)
     }
@@ -233,6 +241,7 @@ extension PlanarMeerkatsViewController: ARSCNViewDelegate {
         if mainPlane == nil {
             mainPlane = planeNode
             mainPlaneAnchor = planeAnchor
+            self.addClippingFloor()
         }
         
         DispatchQueue.main.async {
