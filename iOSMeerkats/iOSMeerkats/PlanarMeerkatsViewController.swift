@@ -110,7 +110,7 @@ class PlanarMeerkatsViewController: UIViewController {
     // MARK: - UI Events
     
     @IBAction func tapScreen(_ sender: UITapGestureRecognizer) {
-        if self.sceneView.scene.rootNode.childNodes.count > PlanarMeerkatsViewController.MAXMEERKATS {
+        if meerkats.count > PlanarMeerkatsViewController.MAXMEERKATS {
             let alert = UIAlertController(title: "YOU LOST", message: "The meerkats have taken over. Way to go.", preferredStyle: .alert)
             let okay = UIAlertAction(title: "Okay", style: .default, handler: { (_) in
                 fatalError()
@@ -273,8 +273,8 @@ extension PlanarMeerkatsViewController {
         var posNew = node.position
         posNew.y -= 0.4
         node.runAction(SCNAction.move(to: posNew, duration: 2.0)) {
-            
             node.removeFromParentNode()
+            self.meerkats.remove(at: 0)
         }
     }
 }
