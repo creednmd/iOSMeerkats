@@ -210,6 +210,28 @@ extension PlanarMeerkatsViewController: ARSessionObserver {
     }
 }
 
+
+extension PlanarMeerkatsViewController {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        let location = touch.location(in: sceneView)
+        let hitResults = sceneView.hitTest(location, options: nil)
+        if hitResults.count > 0 {
+            let result = hitResults.first!
+            handleTouchFor(result.node)
+        }
+    }
+    
+    
+    func handleTouchFor(_ node : SCNNode) {
+        print("Remove Meerkat \(node)")
+        node.removeFromParentNode()
+    }
+    
+}
+
+
 // MARK: - SCNPhysicsContactDelegate
 
 extension PlanarMeerkatsViewController: SCNPhysicsContactDelegate {

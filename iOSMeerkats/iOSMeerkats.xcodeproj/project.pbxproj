@@ -18,6 +18,8 @@
 		92EC63991F617D1400BF8329 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92EC63971F617D1400BF8329 /* Main.storyboard */; };
 		92EC639B1F617D1400BF8329 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92EC639A1F617D1400BF8329 /* Assets.xcassets */; };
 		92EC639E1F617D1400BF8329 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92EC639C1F617D1400BF8329 /* LaunchScreen.storyboard */; };
+		C0746ECB1F61D7310002B406 /* Explosion.scnp in Resources */ = {isa = PBXBuildFile; fileRef = C0746EC91F61D7310002B406 /* Explosion.scnp */; };
+		C0746ECC1F61D7310002B406 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = C0746ECA1F61D7310002B406 /* spark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		92EC639A1F617D1400BF8329 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92EC639D1F617D1400BF8329 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		92EC639F1F617D1400BF8329 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0746EC91F61D7310002B406 /* Explosion.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Explosion.scnp; sourceTree = "<group>"; };
+		C0746ECA1F61D7310002B406 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,8 @@
 				9295C8781F61B4DE004E00A4 /* PlanarMeerkatsViewController.swift */,
 				916EB6D21F61C93D004F976D /* CollisionTypes.swift */,
 				916EB6D41F61C94F004F976D /* Float+Extension.swift */,
+				C0746EC91F61D7310002B406 /* Explosion.scnp */,
+				C0746ECA1F61D7310002B406 /* spark.png */,
 			);
 			path = iOSMeerkats;
 			sourceTree = "<group>";
@@ -159,7 +165,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				92EC63941F617D1400BF8329 /* art.scnassets in Resources */,
+				C0746ECB1F61D7310002B406 /* Explosion.scnp in Resources */,
 				92EC639E1F617D1400BF8329 /* LaunchScreen.storyboard in Resources */,
+				C0746ECC1F61D7310002B406 /* spark.png in Resources */,
 				92EC639B1F617D1400BF8329 /* Assets.xcassets in Resources */,
 				92EC63991F617D1400BF8329 /* Main.storyboard in Resources */,
 				916EB6CE1F61BFB6004F976D /* Settings.storyboard in Resources */,
