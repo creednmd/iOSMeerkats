@@ -28,6 +28,7 @@ class PlanarMeerkatsViewController: UIViewController {
     
     fileprivate var mainPlane: SCNNode?
     fileprivate var mainPlaneAnchor: ARPlaneAnchor?
+    fileprivate var clippingFloor: SCNFloor?
     
     fileprivate var isErrorState = false {
         didSet {
@@ -53,6 +54,7 @@ class PlanarMeerkatsViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Hide Planes", style: .plain, target: self, action: #selector(tapTogglePlanes))
         
         configureWorldBottom()
+        self.addClippingFloor()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,6 +104,17 @@ class PlanarMeerkatsViewController: UIViewController {
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
         sceneView.session.run(configuration)
+    }
+    private func addClippingFloor() {
+        self.clippingFloor = SCNFloor()
+        
+        self.clippingFloor?.reflectivity = 0
+        self.clippingFloor?.materials.first?.isLitPerPixel = false
+        self.clippingFloor?.materials.first?.colorBufferWriteMask = .alpha
+
+        let clippingFloorNode = SCNNode(geometry: self.clippingFloor)
+        
+        self.sceneView.scene.rootNode.addChildNode(clippingFloorNode)
     }
     
     fileprivate func showErrorState() {
