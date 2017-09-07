@@ -106,11 +106,11 @@ class PlanarMeerkatsViewController: UIViewController {
     // MARK: - UI Events
     
     @IBAction func tapScreen(_ sender: UITapGestureRecognizer) {
-        
-        let box = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
-        if let node = SCNScene(named: "art.scnassets/scaledMeerkat.scn")?.rootNode {
-            meerkats.append(node)
-            addObject(node: node)
+        for _ in 0..<multiplier {
+            if let node = SCNScene(named: "art.scnassets/scaledMeerkat.scn")?.rootNode {
+                meerkats.append(node)
+                addObject(node: node)
+            }
         }
     }
     
@@ -177,14 +177,12 @@ class PlanarMeerkatsViewController: UIViewController {
     
     func addObject(node: SCNNode) {
         guard let mainPlane = self.mainPlane else { return }
-        let worldTransform = mainPlane.worldTransform
-        let magicOffset: Float = -0.8
         
         let minZOffset: Float = -1.0
         let maxZOffset: Float = 0
         let minXOffset: Float =  -0.5
         let maxXOffset: Float = 0.5
-        //node.position = SCNVector3Make(worldTransform.m31, worldTransform.m32, worldTransform.m33)
+
         node.position = mainPlane.position
         node.position.y = mainPlaneAnchor!.transform.columns.3.y
 
@@ -325,9 +323,10 @@ extension PlanarMeerkatsViewController: ARSCNViewDelegate {
     
     func beginGame() {
         DispatchQueue.main.async {
-        self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
-            self.tapScreen(UITapGestureRecognizer())
-        })
+            self.timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { _ in
+                self.elapsedTime += 0.5
+                self.tapScreen(UITapGestureRecognizer())
+            })
         }
     }
 }
