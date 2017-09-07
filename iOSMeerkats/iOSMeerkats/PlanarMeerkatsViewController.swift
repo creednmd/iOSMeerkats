@@ -11,7 +11,7 @@ import SceneKit
 import ARKit
 
 
-class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
+class PlanarMeerkatsViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
     
@@ -109,7 +109,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     }
 }
 
-extension ViewController {
+extension PlanarMeerkatsViewController {
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
@@ -143,7 +143,7 @@ extension ViewController {
     }
 }
 
-extension ViewController {
+extension PlanarMeerkatsViewController {
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         let mask = contact.nodeA.physicsBody!.categoryBitMask | contact.nodeB.physicsBody!.categoryBitMask
@@ -166,7 +166,7 @@ struct CollisionTypes : OptionSet {
 }
 
 
-extension ViewController: ARSessionDelegate {
+extension PlanarMeerkatsViewController: ARSessionDelegate {
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
         print("updated anchor \(anchors)")
     }
@@ -180,4 +180,5 @@ extension Float {
         return min + off
     }
 }
+
 
